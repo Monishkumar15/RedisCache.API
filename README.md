@@ -42,7 +42,7 @@ A .NET 8 Web API demonstrating the **cache-aside pattern** using Redis in front 
 
 3. **Update the connection string** in `appsettings.json` if your SQL Server instance differs:
    ```json
-   "DefaultConnection": "Server=softsuave\\SQLEXPRESS;Database=RedisCacheDb;Trusted_Connection=True;TrustServerCertificate=True;"
+   "DefaultConnection": "Server=systemname\\SQLEXPRESS;Database=RedisCacheDb;Trusted_Connection=True;TrustServerCertificate=True;"
    ```
 
 4. **Run the API** — EF Core migrations run automatically on startup:
