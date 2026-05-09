@@ -1,0 +1,6 @@
+@RedisCache.API_HostAddress = http://localhost:5235
+
+GET {{RedisCache.API_HostAddress}}/RedisCacheAPI/
+Accept: application/json
+
+###

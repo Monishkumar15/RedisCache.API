@@ -1,0 +1,67 @@
+using Microsoft.AspNetCore.Mvc;
+using RedisCache.API.Models;
+using RedisCache.API.Services;
+
+namespace RedisCache.API.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+[Produces("application/json")]
+public class ProductsController(IProductService service) : ControllerBase
+{
+    /// <summary>Get all products (always hits the database).</summary>
+    [HttpGet]
+    [ProducesResponseType(typeof(IEnumerable<Product>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetAll()
+    {
+        var products = await service.GetAllAsync();
+        return Ok(products);
+    }
+
+    /// <summary>
+    /// Get a product by ID. Uses cache-aside:
+    /// first call hits the DB and stores in Redis; subsequent calls return from cache.
+    /// </summary>
+    [HttpGet("{id:int}")]
+    [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var product = await service.GetByIdAsync(id);
+        return product is null ? NotFound($"Product {id} not found.") : Ok(product);
+    }
+
+    /// <summary>Create a new product. The Id field is auto-generated — leave it as 0.</summary>
+    [HttpPost]
+    [ProducesResponseType(typeof(Product), StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Create([FromBody] Product product)
+    {
+        var created = await service.CreateAsync(product);
+        return CreatedAtAction(nameof(GetById), new { id = created.Id }, created);
+    }
+
+    /// <summary>
+    /// Update a product by ID.
+    /// Saves to the database and immediately invalidates the Redis cache key
+    /// so the next GET returns fresh data.
+    /// </summary>
+    [HttpPut("{id:int}")]
+    [ProducesResponseType(typeof(Product), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Update(int id, [FromBody] Product product)
+    {
+        var updated = await service.UpdateAsync(id, product);
+        return updated is null ? NotFound($"Product {id} not found.") : Ok(updated);
+    }
+
+    /// <summary>Delete a product by ID and remove it from the cache.</summary>
+    [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var deleted = await service.DeleteAsync(id);
+        return deleted ? NoContent() : NotFound($"Product {id} not found.");
+    }
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RedisCache.API</name>
+    </assembly>
+    <members>
+        <member name="M:RedisCache.API.Controllers.ProductsController.GetAll">
+            <summary>Get all products (always hits the database).</summary>
+        </member>
+        <member name="M:RedisCache.API.Controllers.ProductsController.GetById(System.Int32)">
+            <summary>
+            Get a product by ID. Uses cache-aside:
+            first call hits the DB and stores in Redis; subsequent calls return from cache.
+            </summary>
+        </member>
+        <member name="M:RedisCache.API.Controllers.ProductsController.Create(RedisCache.API.Models.Product)">
+            <summary>Create a new product. The Id field is auto-generated — leave it as 0.</summary>
+        </member>
+        <member name="M:RedisCache.API.Controllers.ProductsController.Update(System.Int32,RedisCache.API.Models.Product)">
+            <summary>
+            Update a product by ID.
+            Saves to the database and immediately invalidates the Redis cache key
+            so the next GET returns fresh data.
+            </summary>
+        </member>
+        <member name="M:RedisCache.API.Controllers.ProductsController.Delete(System.Int32)">
+            <summary>Delete a product by ID and remove it from the cache.</summary>
+        </member>
+        <member name="T:RedisCache.API.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:RedisCache.API.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:RedisCache.API.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:RedisCache.API.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>
