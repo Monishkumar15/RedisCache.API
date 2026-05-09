@@ -1,5 +1,36 @@
 [
   {
+    "ContainingType": "RedisCache.API.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/Auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "RedisCache.API.Models.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Object",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 200
+      },
+      {
+        "Type": "Microsoft.AspNetCore.Mvc.ProblemDetails",
+        "MediaTypes": [
+          "application/json"
+        ],
+        "StatusCode": 401
+      }
+    ]
+  },
+  {
     "ContainingType": "RedisCache.API.Controllers.ProductsController",
     "Method": "GetAll",
     "RelativePath": "api/Products",
@@ -26,8 +57,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "product",
-        "Type": "RedisCache.API.Models.Product",
+        "Name": "request",
+        "Type": "RedisCache.API.Models.CreateProductRequest",
         "IsRequired": true
       }
     ],

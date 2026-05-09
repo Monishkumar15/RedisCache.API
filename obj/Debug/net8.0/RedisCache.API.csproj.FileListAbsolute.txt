@@ -10,6 +10,7 @@ D:\Redis\RedisCache.API\bin\Debug\net8.0\RedisCache.API.xml
 D:\Redis\RedisCache.API\bin\Debug\net8.0\Azure.Core.dll
 D:\Redis\RedisCache.API\bin\Debug\net8.0\Azure.Identity.dll
 D:\Redis\RedisCache.API\bin\Debug\net8.0\Humanizer.dll
+D:\Redis\RedisCache.API\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 D:\Redis\RedisCache.API\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 D:\Redis\RedisCache.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
 D:\Redis\RedisCache.API\bin\Debug\net8.0\Microsoft.CodeAnalysis.CSharp.dll
@@ -133,6 +134,7 @@ D:\Redis\RedisCache.API\obj\Debug\net8.0\RedisCache.API.AssemblyInfo.cs
 D:\Redis\RedisCache.API\obj\Debug\net8.0\RedisCache.API.csproj.CoreCompileInputs.cache
 D:\Redis\RedisCache.API\obj\Debug\net8.0\RedisCache.API.MvcApplicationPartsAssemblyInfo.cs
 D:\Redis\RedisCache.API\obj\Debug\net8.0\RedisCache.API.MvcApplicationPartsAssemblyInfo.cache
+D:\Redis\RedisCache.API\obj\Debug\net8.0\RedisCache.API.sourcelink.json
 D:\Redis\RedisCache.API\obj\Debug\net8.0\rjimswa.dswa.cache.json
 D:\Redis\RedisCache.API\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
 D:\Redis\RedisCache.API\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json

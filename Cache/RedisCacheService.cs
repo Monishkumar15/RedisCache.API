@@ -2,7 +2,6 @@ using StackExchange.Redis;
 
 namespace RedisCache.API.Cache;
 
-// IConnectionMultiplexer is registered as a singleton — one shared connection for the app lifetime.
 public class RedisCacheService(IConnectionMultiplexer redis, ILogger<RedisCacheService> logger) : ICacheService
 {
     private readonly IDatabase _db = redis.GetDatabase();
@@ -16,7 +15,8 @@ public class RedisCacheService(IConnectionMultiplexer redis, ILogger<RedisCacheS
         }
         catch (Exception ex)
         {
-            logger.LogWarning("Redis unavailable on GET '{Key}': {Message}", key, ex.Message);
+            logger.LogWarning("!!! REDIS DOWN — GET '{Key}' failed. FALLING BACK TO DATABASE. Error: {Message}",
+                key, ex.Message);
             return null;
         }
     }
@@ -29,7 +29,8 @@ public class RedisCacheService(IConnectionMultiplexer redis, ILogger<RedisCacheS
         }
         catch (Exception ex)
         {
-            logger.LogWarning("Redis unavailable on SET '{Key}': {Message}", key, ex.Message);
+            logger.LogWarning("!!! REDIS DOWN — SET '{Key}' failed. Data will not be cached. Error: {Message}",
+                key, ex.Message);
         }
     }
 
@@ -41,7 +42,8 @@ public class RedisCacheService(IConnectionMultiplexer redis, ILogger<RedisCacheS
         }
         catch (Exception ex)
         {
-            logger.LogWarning("Redis unavailable on DELETE '{Key}': {Message}", key, ex.Message);
+            logger.LogWarning("!!! REDIS DOWN — DELETE '{Key}' failed. Cache may be stale. Error: {Message}",
+                key, ex.Message);
         }
     }
 }
